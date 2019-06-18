@@ -11,6 +11,8 @@ import scrapy
 class YapprItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    original_label = scrapy.Field()
+    breed_id = scrapy.Field()
     group = scrapy.Field()
     english = scrapy.Field()
     french = scrapy.Field()

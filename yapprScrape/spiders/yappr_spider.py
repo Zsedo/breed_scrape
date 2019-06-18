@@ -27,6 +27,8 @@ class YapprSpiderSpider(scrapy.Spider):
             yield scrapy.Request(self.main_url + b, callback=self.parse_breed)
 
     def parse_breed(self, response):
+        original_label = response.xpath('//*[@id="ContentPlaceHolder1_NomOrigineLabel"]//text()').get()
+        breed_id = response.xpath('//*[@id="ContentPlaceHolder1_NumeroLabel"]//text()').get()
         group = response.xpath('//*[@id="ContentPlaceHolder1_GroupeHyperLink"]//text()').get()
 
         english = response.xpath('//*[@id="ContentPlaceHolder1_NomEnLabel"]/text()').get()
@@ -44,6 +46,8 @@ class YapprSpiderSpider(scrapy.Spider):
         working_trial = response.xpath('//*[@id="ContentPlaceHolder1_EpreuveTravailLabel"]/text()').get()
 
         item = YapprItem()
+        item["original_label"] = original_label
+        item["breed_id"] = breed_id
         item["group"] = group
         item["english"] = english
         item["french"] = french
